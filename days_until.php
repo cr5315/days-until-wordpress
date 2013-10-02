@@ -66,7 +66,7 @@ function du_settings_page() {
 			</tr>
 			
 			<tr valign="top">
-				<th scope="row">Event Date (Currently non-functional)</th>
+				<th scope="row">Event Date</th>
 				<td>
 					<label for="du_day">Day</label>
 					<select name="du_day" id="du_day">
@@ -184,7 +184,7 @@ function du_get_year_array() {
 	$array = array();
 	
 	$year = 2013;
-	for ($i = 0; $i < 10; $i++) {
+	for ($i = 0; $i < 20; $i++) {
 		$array[$i] = $year;
 		
 		$year++;
