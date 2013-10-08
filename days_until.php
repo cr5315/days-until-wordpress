@@ -14,7 +14,7 @@ function du_shortcode($attrs) {
 	$days = getDaysUntil();
 	
 	if ($days > 1) return $days . " days until " . $event . ".";
-	elseif ($days = 1) return $days . " day until " . $event . ".";
+	elseif ($days == 1) return $days . " day until " . $event . ".";
 	elseif ($days < 0) return ($days * -1) . " days since " . $event . ".";
 	else return $event . " is today!";
 	
