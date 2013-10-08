@@ -31,7 +31,7 @@ function getDaysUntil() {
 	$cdate = date("Y-m-d");
 	$fdate = $year . "-" . $month . "-" . $day;
 	
-	return round((strtotime($fdate) - strtotime($cdate)) / 86400);
+	return floor((strtotime($fdate) - strtotime($cdate)) / 86400);
 }
 
 function du_create_admin_menu() {
