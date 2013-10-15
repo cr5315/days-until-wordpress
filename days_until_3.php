@@ -25,24 +25,23 @@ function du3_getDaysUntil($day, $month, $year, $title) {
 	$cdate = date("Y-m-d");
 	$fdate = $year . "-" . $month . "-" . $day;
 	
-	$days = floor((strtotime($fdate) - strtotime($cdate)) / 86400);
-	$months = floor((strtotime($fdate) - strtotime($cdate)) / 2.63e+6);
+	$days = round((strtotime($fdate) - strtotime($cdate)) / 86400);
+	$months = round((strtotime($fdate) - strtotime($cdate)) / 2.63e+6);
 	$years = floor((strtotime($fdate) - strtotime($cdate)) / 3.156e+7);
 	
 	$isPast = false;
 	if ($days < 0 && $months < 0 && $years < 0) {
 		$isPast = true;
-		$days = $days * -1;
+		$years = ceil((strtotime($fdate) - strtotime($cdate)) / 3.156e+7) * -1;
 		$months = $months * -1;
-		$years = $years * -1;
+		$days = $days * -1;
 	}
-	
 	for ($i = 0; $i < $years; $i++) {
 		$months -= 12;
-		$days -= 365;
 	}
+	$days -= du3_subtract_years($years);
 	$days -= du3_subtract_months($months);
-	
+		
 	return du3_format_time_until($days, $months, $years, $title, $isPast);
 }
 
@@ -139,6 +138,24 @@ function du3_is_leap_year() {
 	} else {
 		return false;
 	}
+}
+
+function du3_subtract_years($count) {
+	$days_to_subtract = 0;
+	$leap_year = 2012;
+	$current_year = date('Y');
+	
+	for ($i = 0; $i < $count; $i++) {
+		if (($current_year % 4) == 0) {
+			// It's a leap year
+			$days_to_subtract += 366;
+		} else {
+			$days_to_subtract += 365;
+		}
+		$current_year -= 1;
+	}
+	
+	return $days_to_subtract;
 }
 
 ?>
