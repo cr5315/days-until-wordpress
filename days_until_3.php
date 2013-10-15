@@ -84,7 +84,19 @@ function du3_subtract_months($count) {
 	for ($i = 0; $i < $count; $i++) {
 		switch ($month) {
 		case 1: // January
+		case 3: // March
+		case 5: // May
+		case 7: // July
+		case 8: // August
+		case 10: // October
+		case 12: // December
 			$days_to_subtract += 31;
+			break;
+		case 4: // April
+		case 6: // June
+		case 9: // September
+		case 11: // November
+			$days_to_subtract += 30;
 			break;
 		case 2: // February
 			if (du3_is_leap_year()) {
@@ -92,36 +104,6 @@ function du3_subtract_months($count) {
 			} else {
 				$days_to_subtract += 28;
 			}
-			break;
-		case 3: // March
-			$days_to_subtract += 31;
-			break;
-		case 4: // April
-			$days_to_subtract += 30;
-			break;
-		case 5: // May
-			$days_to_subtract += 31;
-			break;
-		case 6: // June
-			$days_to_subtract += 30;
-			break;
-		case 7: // July
-			$days_to_subtract += 31;
-			break;
-		case 8: // August
-			$days_to_subtract += 31;
-			break;
-		case 9: // September
-			$days_to_subtract += 30;
-			break;
-		case 10: // October
-			$days_to_subtract += 31;
-			break;
-		case 11: // November
-			$days_to_subtract += 30;
-			break;
-		case 12: // December
-			$days_to_subtract += 31;
 			break;
 		}
 		if ($month == 12) $month = 1;
