@@ -25,8 +25,8 @@ function du3_getDaysUntil($day, $month, $year, $title) {
 	$cdate = date("Y-m-d");
 	$fdate = $year . "-" . $month . "-" . $day;
 	
-	$days = round((strtotime($fdate) - strtotime($cdate)) / 86400);
-	$months = round((strtotime($fdate) - strtotime($cdate)) / 2.63e+6);
+	$days = floor((strtotime($fdate) - strtotime($cdate)) / 86400);
+	$months = floor((strtotime($fdate) - strtotime($cdate)) / 2.63e+6);
 	$years = floor((strtotime($fdate) - strtotime($cdate)) / 3.156e+7);
 	
 	$isPast = false;
@@ -39,7 +39,7 @@ function du3_getDaysUntil($day, $month, $year, $title) {
 	for ($i = 0; $i < $years; $i++) {
 		$months -= 12;
 	}
-	$days -= du3_subtract_years($years);
+	$days -= du3_subtract_years($years, $isPast);
 	$days -= du3_subtract_months($months);
 		
 	return du3_format_time_until($days, $months, $years, $title, $isPast);
@@ -140,7 +140,7 @@ function du3_is_leap_year() {
 	}
 }
 
-function du3_subtract_years($count) {
+function du3_subtract_years($count, $isPast) {
 	$days_to_subtract = 0;
 	$leap_year = 2012;
 	$current_year = date('Y');
@@ -152,7 +152,8 @@ function du3_subtract_years($count) {
 		} else {
 			$days_to_subtract += 365;
 		}
-		$current_year -= 1;
+		if ($isPast) $current_year--;
+		else $current_year++;
 	}
 	
 	return $days_to_subtract;
