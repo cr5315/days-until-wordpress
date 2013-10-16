@@ -33,7 +33,7 @@ function du3_getDaysUntil($day, $month, $year, $title) {
 	if ($days < 0 && $months < 0 && $years < 0) {
 		$isPast = true;
 		$years = ceil((strtotime($fdate) - strtotime($cdate)) / 3.156e+7) * -1;
-		$months = ceil((strtotime($fdate) - strtotime($cdate)) / 2.63e+6) * -1;
+		$months = round((strtotime($fdate) - strtotime($cdate)) / 2.63e+6) * -1;
 		$days = ceil((strtotime($fdate) - strtotime($cdate)) / 86400) * -1;
 	}
 	for ($i = 0; $i < $years; $i++) {
@@ -43,38 +43,6 @@ function du3_getDaysUntil($day, $month, $year, $title) {
 	$days -= du3_subtract_months($months, $isPast);
 		
 	return du3_format_time_until($days, $months, $years, $title, $isPast);
-}
-
-function du3_format_time_until($days, $months, $years, $title, $isPast) {
-	$time_until = "";
-	
-	// Years
-	if ($years == 1) {
-		$time_until = $time_until . $years . " year, ";
-	} else if ($years > 1 || $years < 0) {
-		$time_until = $time_until . $years . " years, ";
-	}
-	
-	// Months
-	if ($months == 1) {
-		$time_until = $time_until . $months . " month, ";
-	} else if ($months > 1 || $months < 0) {
-		$time_until = $time_until . $months . " months, ";
-	}
-	
-	// Days
-	if ($days == 1) {
-		$time_until = $time_until . $days . " day ";
-	} else if ($days > 1 || $days <= 0) {
-		$time_until = $time_until . $days . " days ";
-	}
-	
-	if ($isPast) {
-		return $time_until . " since ". $title;
-	} else {
-		return $time_until . " until ". $title;
-	}
-	
 }
 
 function du3_subtract_months($count, $isPast) {
@@ -145,6 +113,38 @@ function du3_subtract_years($count, $isPast) {
 	}
 	
 	return $days_to_subtract;
+}
+
+function du3_format_time_until($days, $months, $years, $title, $isPast) {
+	$time_until = "";
+	
+	// Years
+	if ($years == 1) {
+		$time_until = $time_until . $years . " year, ";
+	} else if ($years > 1 || $years < 0) {
+		$time_until = $time_until . $years . " years, ";
+	}
+	
+	// Months
+	if ($months == 1) {
+		$time_until = $time_until . $months . " month, ";
+	} else if ($months > 1 || $months < 0) {
+		$time_until = $time_until . $months . " months, ";
+	}
+	
+	// Days
+	if ($days == 1) {
+		$time_until = $time_until . $days . " day ";
+	} else if ($days > 1 || $days <= 0) {
+		$time_until = $time_until . $days . " days ";
+	}
+	
+	if ($isPast) {
+		return $time_until . " since ". $title;
+	} else {
+		return $time_until . " until ". $title;
+	}
+	
 }
 
 ?>
